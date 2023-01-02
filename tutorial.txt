@@ -1,0 +1,8 @@
+постман:https://www.youtube.com/watch?v=2ZWYnSryU9c&t=0s
+
+введение:https://www.youtube.com/watch?v=lkrwSLpeN1I&list=PLWVnIRD69wY62qRnOw8EjaKyC8buYe1GH&index=1
+видос по парсингу: https://www.youtube.com/watch?v=8rE5uxAv2RU&list=PLWVnIRD69wY62qRnOw8EjaKyC8buYe1GH&index=4
+видос по аналитике:
+
+
+Справочник запросов: http://iss.moex.com/iss/reference/
