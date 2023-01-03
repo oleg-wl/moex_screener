@@ -1,10 +1,11 @@
 import requests
-import json
+import pandas as pd
 
 
 params = {'group_by':'group',
           'group_by_filter':'stock_bonds',
-          'iss.meta':'off'}
+          'iss.meta':'off',
+          'is_trading':1}
 
 """
 Класс для работоы с API Московской биржи. 
@@ -14,11 +15,33 @@ class Moex():
         #Создание объекта сессии 
         self.session = requests.Session()
         
-    def request_to_api(self, **query_params):
-        data = self.session.get('https://iss.moex.com/iss/securities.json', params=query_params).json()
+    def request_to_api(self, query_type:str, **query_params):
+        data = self.session.get(f'https://iss.moex.com/iss/{query_type}s.json', params=query_params).json()
         return data
     
+    def get_bonds(self):
+        """
+        Экземпляр класса для получения списка торгуемых на Мосбирже облигаций через запрос к API Moex
+        """               
+        bonds = self.request_to_api('securitie', limit=100, start=0, group_by='group', group_by_filter='stock_bonds', is_trading=1)
+        
+        for p in range(1,1000):
+            page = self.request_to_api('securitie', limit=100, start=p*100, group_by='group', group_by_filter='stock_bonds', is_trading=1)
+            
+            for value in page['securities']['data']:
+                bonds['securities']['data'].append(value)
+        
+            print('Добавлено: ', p)
+            
+            if len(page['securities']['data']) < 1:
+                print('final')
+                break  
+        return bonds             
+    
 r = Moex()
-r1= r.request_to_api(**params)
 
-print(r1)
+page = r.get_bonds()
+
+df  = pd.DataFrame(page['securities']['data'], columns=page['securities']['columns'])
+print(df.head(), len(df))
+   
