@@ -6,3 +6,5 @@
 
 
 Справочник запросов: http://iss.moex.com/iss/reference/
+
+Source Project: https://github.com/AzzraelCode/moex-bonds/blob/main/inc/Moex.py
