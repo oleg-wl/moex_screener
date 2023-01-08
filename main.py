@@ -25,23 +25,32 @@ class Moex():
         """               
         bonds = self.request_to_api('securitie', limit=100, start=0, group_by='group', group_by_filter='stock_bonds', is_trading=1)
         
+        #Цикл для сборки нескольких страниц, выдаваемых запросом к API
         for p in range(1,1000):
             page = self.request_to_api('securitie', limit=100, start=p*100, group_by='group', group_by_filter='stock_bonds', is_trading=1)
             
             for value in page['securities']['data']:
                 bonds['securities']['data'].append(value)
         
-            print('Добавлено: ', p)
+            print('Загружена страница: ', p)
             
             if len(page['securities']['data']) < 1:
-                print('final')
+                print('Загрузка завершена.')
                 break  
-        return bonds             
+        return bonds 
     
-r = Moex()
+    def get_stocks(self):
+        pass
+    
+    def get_price(self):
+        pass            
 
-page = r.get_bonds()
 
-df  = pd.DataFrame(page['securities']['data'], columns=page['securities']['columns'])
-print(df.head(), len(df))
+if __name__ == "__main__":    
+    r = Moex()
+
+    page = r.get_bonds()
+
+    df  = pd.DataFrame(page['securities']['data'], columns=page['securities']['columns'])
+    print(df.head(), len(df))
    
