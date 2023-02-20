@@ -1,5 +1,6 @@
+#!venv/bin/python
+
 import requests
-import pandas as pd
 
 
 params = {'group_by':'group',
@@ -31,8 +32,6 @@ class Moex():
             
             for value in page['securities']['data']:
                 bonds['securities']['data'].append(value)
-        
-            print('Загружена страница: ', p)
             
             if len(page['securities']['data']) < 1:
                 print('Загрузка завершена.')
@@ -46,11 +45,4 @@ class Moex():
         pass            
 
 
-if __name__ == "__main__":    
-    r = Moex()
-
-    page = r.get_bonds()
-
-    df  = pd.DataFrame(page['securities']['data'], columns=page['securities']['columns'])
-    print(df.head(), len(df))
    
