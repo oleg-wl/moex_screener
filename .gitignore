@@ -2,3 +2,5 @@ venv
 test*
 *venv*
 venv/**
+__pycache__/**
+.vscode
